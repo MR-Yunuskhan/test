@@ -1,89 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Local Notification Demo</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Random Country Alert</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
       margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      background: #f4f4f4;
-    }
-
-    h2 {
-      color: #333;
-    }
-
-    input[type="text"] {
-      padding: 10px;
-      width: 90%;
-      max-width: 400px;
-      margin: 10px 0;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      font-size: 16px;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(to right, #00c6ff, #0072ff);
     }
 
     button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #007BFF;
-      color: white;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      background-color: white;
+      color: #0072ff;
       border: none;
-      border-radius: 5px;
+      border-radius: 10px;
       cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s ease;
     }
 
     button:hover {
-      background-color: #0056b3;
+      transform: scale(1.05);
     }
 
     @media (max-width: 600px) {
-      input, button {
-        width: 100%;
+      button {
+        font-size: 1rem;
+        padding: 12px 24px;
       }
     }
   </style>
 </head>
 <body>
-  <h2>Send Local Notification</h2>
-  <input type="text" id="notifText" placeholder="Enter your notification text here">
-  <button onclick="sendNotification()">Send Notification</button>
+  <button onclick="showRandomCountry()">Show Random Country</button>
 
   <script>
-    // Ask permission on page load
-    document.addEventListener('DOMContentLoaded', () => {
-      if ("Notification" in window) {
-        Notification.requestPermission().then(permission => {
-          console.log("Notification permission:", permission);
-        });
-      } else {
-        alert("Your browser does not support notifications.");
-      }
-    });
+    const countries = [
+      "India", "United States", "Brazil", "Canada", "Australia",
+      "Germany", "France", "Italy", "Japan", "South Korea",
+      "Mexico", "Russia", "China", "United Kingdom", "South Africa"
+    ];
 
-    function sendNotification() {
-      const message = document.getElementById("notifText").value.trim();
-      if (!message) {
-        alert("Please enter some text for the notification.");
-        return;
-      }
-
-      if (Notification.permission === "granted") {
-        new Notification("Custom Notification", {
-          body: message,
-          icon: "https://cdn-icons-png.flaticon.com/512/727/727399.png"
-        });
-      } else {
-        alert("Please allow notifications in your browser.");
-      }
+    function showRandomCountry() {
+      const randomIndex = Math.floor(Math.random() * countries.length);
+      alert("Random Country: " + countries[randomIndex]);
     }
   </script>
 </body>
