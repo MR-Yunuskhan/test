@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Local Notification Demo</title>
+</head>
+<body>
+  <h2>Send Local Notification</h2>
+  <button onclick="sendNotification()">Click Me for Notification</button>
+
+  <script>
+    // Ask permission on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      if ("Notification" in window) {
+        Notification.requestPermission().then(permission => {
+          console.log("Notification permission:", permission);
+        });
+      } else {
+        alert("Your browser does not support notifications.");
+      }
+    });
+
+    function sendNotification() {
+      if (Notification.permission === "granted") {
+        new Notification("Hello!", {
+          body: "This is a local notification triggered by a button click.",
+          icon: "https://cdn-icons-png.flaticon.com/512/727/727399.png" // Optional icon
+        });
+      } else {
+        alert("Please allow notifications in your browser.");
+      }
+    }
+  </script>
+</body>
+</html>
