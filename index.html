@@ -2,11 +2,60 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Local Notification Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: #f4f4f4;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      width: 90%;
+      max-width: 400px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    @media (max-width: 600px) {
+      input, button {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
   <h2>Send Local Notification</h2>
-  <button onclick="sendNotification()">Click Me for Notification</button>
+  <input type="text" id="notifText" placeholder="Enter your notification text here">
+  <button onclick="sendNotification()">Send Notification</button>
 
   <script>
     // Ask permission on page load
@@ -21,10 +70,16 @@
     });
 
     function sendNotification() {
+      const message = document.getElementById("notifText").value.trim();
+      if (!message) {
+        alert("Please enter some text for the notification.");
+        return;
+      }
+
       if (Notification.permission === "granted") {
-        new Notification("Hello!", {
-          body: "This is a local notification triggered by a button click.",
-          icon: "https://cdn-icons-png.flaticon.com/512/727/727399.png" // Optional icon
+        new Notification("Custom Notification", {
+          body: message,
+          icon: "https://cdn-icons-png.flaticon.com/512/727/727399.png"
         });
       } else {
         alert("Please allow notifications in your browser.");
